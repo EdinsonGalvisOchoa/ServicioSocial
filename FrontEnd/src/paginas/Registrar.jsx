@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import{Alerta} from "../components//Alertas"
+import{Alerta} from "../components/Alertas"
 
 const Registrar = () => {
 
@@ -24,14 +24,13 @@ const Registrar = () => {
        
     }
 
-    const {msg} = alerta
-
+  
 
 
     return (
         <>
           <h1 className="text-sky-600 font-black text-6xl capitalize">Registrate</h1>
-          {msg && < Alerta alerta={alerta} />}
+          
     
           <form className="my-10 bg-white shadow rounded-lg p-10"
           onSubmit={handleSubmit}
