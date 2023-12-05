@@ -1,6 +1,7 @@
 import Usuario from "../models/UsuarioModel.js";
 import generarid from "../helpers/generarId.js";
 import generarJWT from "../helpers/generarJWT.js";
+import {emailRegistro} from "../helpers/emails.js"
 
 const registrar = async (req, res) => {
   // Evitar registros duplicados
@@ -14,6 +15,15 @@ const registrar = async (req, res) => {
     const usuario = new Usuario(req.body);
     usuario.token = generarid();
     const usuarioAlmacenado = await usuario.save();
+    // Se envia los datos basicos del usuario a la funcion emailRegistro para asi poder enviar con esos datos el email de confirmacion
+    emailRegistro({
+      
+      
+      email:usuario.email,
+      nombre: usuario.nombre,
+      token:usuario.token
+    
+    })
     res.json({msg:"Usuario creado correctamente, revisa tu email para confirmar tu cuenta"});
   } catch (error) {
     console.log(error);
@@ -103,7 +113,7 @@ const nuevoPassword = async (req, res) => {
     usuario.token = "";
     try {
       await usuario.save();
-      res.json({ msg: "TPassword Modificado correctamente" });
+      res.json({ msg: "Password Modificado correctamente" });
     } catch (error) {
       console.log(error);
     }
