@@ -1,9 +1,71 @@
-
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import{Alerta} from "../components//Alertas"
 
 const Registrar = () => {
-  return (
-    <div>Registrar</div>
-  )
+
+    const[ nombre, setNombre] = useState('')
+    const[ email, setEmail] = useState('')
+    const[ password, setPassword] = useState('')
+    const[ repetirPassword, setRepetirPassword] = useState('')
+    const[ alerta, setAlerta] = useState({})
+
+    const handleSubmit = e =>{
+        e.preventDefault(); // prevenir la accion por defecto , la cual es enviar lo que haya en el formulario sin realizar algun tipo de validacion
+        // validacion de campos obligatorios, los corchetes son para convertir los string en un array
+        if([nombre, email, password, repetirPassword].includes("")){ // podemos acceder al metodo incluides gracias a [], valida que todos esten diligenciados
+            // se a seteado la alerta 
+            setAlerta({
+                msg:"Todos los campos son obligatorios",
+                error:true
+            })
+            return
+        }   
+       
+    }
+
+    const {msg} = alerta
+
+
+
+    return (
+        <>
+          <h1 className="text-sky-600 font-black text-6xl capitalize">Registrate</h1>
+          {msg && < Alerta alerta={alerta} />}
+    
+          <form className="my-10 bg-white shadow rounded-lg p-10"
+          onSubmit={handleSubmit}
+          >
+          <div className="my-5">
+                <label className="uppercase text-gray-600 block text-xl font-bold" htmlfor="email" >Nombre</label>
+                <input id="nombre"type="text" placeholder="Digite tu nombre y apellidos" className="w-full mt-3 p-3 border rounded-xl bg-gray-50" value={nombre} onChange={e=>setNombre(e.target.value)}/>
+            </div>
+            <div className="my-5">
+                <label className="uppercase text-gray-600 block text-xl font-bold" htmlfor="email" >Email</label>
+                <input id="email"type="email" placeholder="email de registro" className="w-full mt-3 p-3 border rounded-xl bg-gray-50" value={email} onChange={e=>setEmail(e.target.value)}/>
+            </div>
+            <div className="my-5">
+                <label className="uppercase text-gray-600 block text-xl font-bold" htmlfor="password">Password</label>
+                <input id="password"type="password" placeholder="password" className="w-full mt-3 p-3 border rounded-xl bg-gray-50"value={password} onChange={e=>setPassword(e.target.value)}/>
+            </div>
+            <div className="my-5">
+                <label className="uppercase text-gray-600 block text-xl font-bold" htmlfor="password">Repetir Password</label>
+                <input id="password2"type="password" placeholder="Repetir tu password" className="w-full mt-3 p-3 border rounded-xl bg-gray-50"value={repetirPassword} onChange={e=>setRepetirPassword(e.target.value)}/>
+            </div>
+            <input type="submit" value="Crear cuenta" className="bg-sky-700 mb-5 w-full py-3 text-white uppercase font-bold rounded hover:cursor-pointer hover:bg-sky-800 transition-colors"/>
+          </form>
+          <nav className="lg:flex lg:justify-between">
+    
+           <Link className="block text-center my-5 text-state-500 uppercase text-sm" to="/">Ya tienes una cuenta? Inicia Sesión</Link>
+           <Link className="block text-center my-5 text-state-500 uppercase text-sm" to="/olvide-password">Olvide mi password</Link>
+    
+    
+          </nav>
+    
+    
+        </>
+      );
+  
 }
 
 export default Registrar
