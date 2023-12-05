@@ -51,7 +51,7 @@ const Registrar = () => {
         setAlerta({}); // si todo esta bien se setea la alerta a vacio
 
         try {
-            const{  data }= await axios.post("http://localhost:4000/api/usuarios",{nombre, email, password})
+            const{  data }= await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/usuarios`,{nombre, email, password})
             setAlerta({
                 msg: data.msg,
                 error: false
