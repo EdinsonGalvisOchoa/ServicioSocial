@@ -1,30 +1,13 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import{Alerta} from "../components/Alertas"
+
 
 const Registrar = () => {
 
     const[ nombre, setNombre] = useState('')
     const[ email, setEmail] = useState('')
     const[ password, setPassword] = useState('')
-    const[ repetirPassword, setRepetirPassword] = useState('')
-    const[ alerta, setAlerta] = useState({})
-
-    const handleSubmit = e =>{
-        e.preventDefault(); // prevenir la accion por defecto , la cual es enviar lo que haya en el formulario sin realizar algun tipo de validacion
-        // validacion de campos obligatorios, los corchetes son para convertir los string en un array
-        if([nombre, email, password, repetirPassword].includes("")){ // podemos acceder al metodo incluides gracias a [], valida que todos esten diligenciados
-            // se a seteado la alerta 
-            setAlerta({
-                msg:"Todos los campos son obligatorios",
-                error:true
-            })
-            return
-        }   
-       
-    }
-
-  
+    const[ repetirPassword, setRepetirPassword] = useState('') 
 
 
     return (
@@ -33,7 +16,7 @@ const Registrar = () => {
           
     
           <form className="my-10 bg-white shadow rounded-lg p-10"
-          onSubmit={handleSubmit}
+          
           >
           <div className="my-5">
                 <label className="uppercase text-gray-600 block text-xl font-bold" htmlfor="email" >Nombre</label>
