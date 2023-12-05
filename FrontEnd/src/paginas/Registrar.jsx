@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import Alertas from "../components/Alertas"
+import axios from "axios" //    Comunicarnos desde react hacia el backend por medio de axios
+
 
 
 const Registrar = () => {
@@ -17,7 +19,7 @@ const Registrar = () => {
         // podemos acceder al metodo incluides gracias a [], valida que todos esten diligenciados
             // se a seteado la alerta 
             
-    const handleSubmit = e =>{
+    const handleSubmit = async e =>{
        
         e.preventDefault(); 
         if([nombre, email, password, repetirPassword].includes('')){ 
@@ -46,8 +48,18 @@ const Registrar = () => {
             return
         }     
         
-        setAlerta({});
-      console.log("Creando.....")  // si todo esta bien se setea la alerta a vacio
+        setAlerta({}); // si todo esta bien se setea la alerta a vacio
+
+        try {
+            const{  data }= await axios.post("http://localhost:4000/api/usuarios",{nombre, email, password})
+            setAlerta({
+                msg: data.msg,
+                error: false
+            });
+           
+        } catch (error) {
+            console.log(error)            
+        }
     }
 
     const { msg } = alerta

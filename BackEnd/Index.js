@@ -4,6 +4,7 @@ import conectarDB from "./config/database.js"; // Importacionn del archivo quye 
 import usuarioRoutes from "./routes/usuariosRoutes.js"
 import proyectoRoutes from "./routes/proyectoRoutes.js"
 import tareaRoutes from "./routes/tareaRoutes.js"
+import cors from "cors";
 
 
 
@@ -11,6 +12,25 @@ const app = express();
 app.use(express.json());// manejar los archjivos de respuesta de json con express, antes se hacia con body parse
 dotenv.config(); // funcion que va a buscar por un archivo .env para utilizar las variables de entorno
 conectarDB();
+//Configuracion de cors (WhiteList: quie dominios  estan permitidos para conectarse)
+const whitelist = ["http://localhost:5173"] // dominio permitido
+const corsOptions={
+  //origin : cual es el origen del request , quien esta enviando el request
+  origin: function(origin, callback){
+    if(whitelist.includes(origin)){
+
+      // Puede consultar la Api
+      callback(null,true); // null porque no hay mensaje de error pero si le damos el acceso con un true
+
+    }else{
+      // No esta permitido conectaerse a la Api
+      callback(new Error("Error de Cors"));
+
+    }
+  },
+};
+
+app.use(cors(corsOptions));
 
 // Routing se hace en express utilizando request(req: lo que envias al servidor) y response(resp:lo que recibes del servidor)
 app.use("/api/usuarios", usuarioRoutes);
