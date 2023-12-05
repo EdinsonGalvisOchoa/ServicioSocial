@@ -12,8 +12,8 @@ const app = express();
 app.use(express.json());// manejar los archjivos de respuesta de json con express, antes se hacia con body parse
 dotenv.config(); // funcion que va a buscar por un archivo .env para utilizar las variables de entorno
 conectarDB();
-//Configuracion de cors (WhiteList: quie dominios  estan permitidos para conectarse)
-const whitelist = ["http://localhost:5173"] // dominio permitido
+//Configuracion de cors /(WhiteList: quie dominios  estan permitidos para conectarse)
+const whitelist = [process.env.FRONTEND_URL];// dominio permitido // // para utilizar las variables de entorno Express en el Backen utiliza process.env.
 const corsOptions={
   //origin : cual es el origen del request , quien esta enviando el request
   origin: function(origin, callback){

@@ -56,9 +56,18 @@ const Registrar = () => {
                 msg: data.msg,
                 error: false
             });
-           
+           // si el codigo se ejecuto hasta aqui significa que ya se creo el usuario por lo tanto seteam,os todas las variables a vacio
+           setNombre("")
+           setEmail("")
+           setPassword("")
+           setRepetirPassword("")
         } catch (error) {
-            console.log(error)            
+
+            setAlerta({
+                msg: error.response.data.msg,// Con .response de axios se puede acceder a los mensajes de error  
+                error: true
+            });
+                    
         }
     }
 
