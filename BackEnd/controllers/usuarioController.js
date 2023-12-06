@@ -64,8 +64,8 @@ const confirmar = async (req, res) => {
   const usuarioConfirmar = await Usuario.findOne({ token }); // Buscamos a un usuario con ese token
   if (!usuarioConfirmar) {
     // si no exiuste "Token no valido"
-    const error = new Error("Token no valido");
-    return res.status(403).json({ msg: error.message });
+    const error = new Error("Token no valido22222");
+    return res.status(404).json({ msg: error.message });
   }
 
   try {
@@ -75,7 +75,9 @@ const confirmar = async (req, res) => {
     usuarioConfirmar.token = ""; // Borramos el token ya que es de un solo uso
     await usuarioConfirmar.save(); // guardamos en la base de datos
     res.json({ msg: "Usuario Confirmado correctamente" });
-  } catch (error) {}
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 const olvidePassword = async (req, res) => {

@@ -5,7 +5,7 @@ export const emailRegistro =async(datos) =>{
 console.log("DATOS",datos);
 const{email,nombre,token} = datos;
 // integracion de nodemailer informada en Mailtrap en la lista desplegable de Integratios
-var transport = nodemailer.createTransport({
+const transport = nodemailer.createTransport({
   host: "sandbox.smtp.mailtrap.io",
   port: 2525,
   auth: {
@@ -23,7 +23,7 @@ const info = await transport.sendMail({
   html: `<p> Hola ${nombre}<p>
   <p>Tu cuenta ya esta casi lista. solo debes comprobarla en el siguiente enlace:
   <a href="${process.env.FRONTEND_URL}/confirmar/${token}">Confirmar cuenta</a>
-  `
+  `,
 })
 };
 
