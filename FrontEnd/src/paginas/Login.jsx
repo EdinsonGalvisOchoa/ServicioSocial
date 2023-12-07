@@ -3,6 +3,8 @@ import { Link, useNavigate } from "react-router-dom";
 import Alertas from "../components/Alertas";
 import clienteAxios from "../config/clienteAxios";
 
+
+// el token se carga al local storage y no al sesion storage para que no se elimine al cerrar la pagina
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -45,6 +47,7 @@ const Login = () => {
       {msg && <Alertas alerta={alerta} />}
 
       <form
+      
         className="my-10 bg-white shadow rounded-lg p-10"
         onSubmit={handleSubmit}
       >
