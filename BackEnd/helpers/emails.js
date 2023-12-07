@@ -6,11 +6,11 @@ console.log("DATOS",datos);
 const{email,nombre,token} = datos;
 // integracion de nodemailer informada en Mailtrap en la lista desplegable de Integratios
 const transport = nodemailer.createTransport({
-  host: "sandbox.smtp.mailtrap.io",
-  port: 2525,
+  host: process.env.EMAIL_HOST,
+  port: process.env.EMAIL_PORT,
   auth: {
-    user: "137a8125b0e45d",
-    pass: "1c6abfb6581a28",
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS,
   }
 });
 
@@ -34,11 +34,11 @@ export const emailOlvidePassword =async(datos) =>{
   const{email,nombre,token} = datos;
   // integracion de nodemailer informada en Mailtrap en la lista desplegable de Integratios
   const transport = nodemailer.createTransport({
-    host: "sandbox.smtp.mailtrap.io",
-    port: 2525,
+    host: process.env.EMAIL_HOST,
+    port: process.env.EMAIL_PORT,
     auth: {
-      user: "137a8125b0e45d",
-      pass: "1c6abfb6581a28",
+      user: process.env.EMAIL_USER,
+      pass: process.env.EMAIL_PASS,
     }
   });
   

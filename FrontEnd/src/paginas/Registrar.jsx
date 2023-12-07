@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import Alertas from "../components/Alertas"
-import axios from "axios" //    Comunicarnos desde react hacia el backend por medio de axios
+//import axios from "axios" //    Comunicarnos desde react hacia el backend por medio de axios
+import clienteAxios from "../config/clienteAxios";
 
 
 
@@ -51,7 +52,7 @@ const Registrar = () => {
         setAlerta({}); // si todo esta bien se setea la alerta a vacio
 
         try {
-            const{  data }= await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/usuarios`,{nombre, email, password})
+            const{  data }= await clienteAxios.post(`/usuarios`,{nombre, email, password})
             setAlerta({
                 msg: data.msg,
                 error: false

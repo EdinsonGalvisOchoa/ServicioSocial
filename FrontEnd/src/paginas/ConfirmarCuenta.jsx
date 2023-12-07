@@ -1,7 +1,8 @@
   import { useEffect, useState } from "react";
   import { useParams, Link } from "react-router-dom";
-  import axios from "axios"; 
+  import clienteAxios from "../config/clienteAxios";
   import Alertas from "../components/Alertas";
+ 
 
 
   const ConfirmarCuenta =  () => {
@@ -17,8 +18,7 @@
       const confirmarCuenta = async () => {
 
         try {
-          const url =`http://localhost:4000/api/usuarios/confirmar/${id}`
-          const { data } = await axios(url)// ES DE TIPO GET Y ESTE ESTA POR DEFECTO 
+          const { data } = await clienteAxios(`usuarios/confirmar/${id}`)// ES DE TIPO GET Y ESTE ESTA POR DEFECTO 
           setAlerta({
             msg:data.msg,
             error:false

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
-import axios from "axios";
+import clienteAxios from "../config/clienteAxios";
 import Alertas from "../components/Alertas";
 
 const NuevoPassword = () => {
@@ -15,11 +15,7 @@ const NuevoPassword = () => {
   useEffect(() => {
     const comprobarToken = async () => {
       try {
-        const { data } = await axios.get(
-          `${
-            import.meta.env.VITE_BACKEND_URL
-          }/api/usuarios/olvide-password/${token}`
-        );
+        const { data } = await clienteAxios.get(`/usuarios/olvide-password/${token}`);
         setTokenValido(true);
       } catch (error) {
         setAlerta({
@@ -43,13 +39,8 @@ const NuevoPassword = () => {
     }
 
     try {
-      const { data } = await axios.post(
-        `${
-          import.meta.env.VITE_BACKEND_URL
-        }/api/usuarios/olvide-password/${token}`,
-        { password }
-        
-      );
+      console.log("ingreso a confirmacion")
+      const { data } = await clienteAxios.post(`/usuarios/olvide-password/${token}`,{ password });
       setAlerta({
         msg:data.msg,
         error:false
