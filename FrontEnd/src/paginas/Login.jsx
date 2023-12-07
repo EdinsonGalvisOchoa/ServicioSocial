@@ -21,6 +21,23 @@ const Login = () => {
       });
       return
     }
+    try {
+
+      const{ data } = await clienteAxios.post(`/usuarios/login/`,{email,password})
+
+      setAlerta({
+        msg:data.msg,
+        error:false
+      })
+      
+    } catch (error) {
+      setAlerta({
+        msg: error.response.data.msg,
+        error: true,
+      });
+    }
+
+
   }
 
   const{ msg } = alerta
