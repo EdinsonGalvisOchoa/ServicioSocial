@@ -11,10 +11,14 @@ const AuthContext = createContext();
 
 const AuthProvider =({children}) => {
 
+  
+   // state llamado auth para almacenar todo el objeto json que devuelve la funcion comprobar password
+     const[ auth, setAuth] = useState({})
     return(
         // informacion que va a estar disponible en los demas componentes
         <AuthContext.Provider
-        value = {{
+        value = {{         
+            setAuth
 
         }}
         

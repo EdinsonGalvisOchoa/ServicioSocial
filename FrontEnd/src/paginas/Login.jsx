@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Alertas from "../components/Alertas";
 import clienteAxios from "../config/clienteAxios";
+import useAuth from "../hooks/useAuth";
 
 
 // el token se carga al local storage y no al sesion storage para que no se elimine al cerrar la pagina
@@ -9,6 +10,10 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [alerta, setAlerta] = useState("");
+
+  // llamo a la funcion useAuth que se encuentra enm la carpeta de hooks que asu vez extrae todo lo que se encuentre en autoprovider quien se encuentra en la carpeta context
+  const {setAuth} = useAuth();
+ 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -25,9 +30,14 @@ const Login = () => {
         email,
         password,
       });
-
-      localStorage.setItem("token", data.token);
+      // seteamos la alerta para que no se siga mostrando
       setAlerta([]);
+      // enviamos la informacion al local storage
+      localStorage.setItem("token", data.token);
+      // seteamos  el useAuth con la informacion de autenticacion enviada desde el backend al momento de confirmar la contraseña
+      setAuth(data)
+      
+      
     } catch (error) {
       setAlerta({
         msg: error.response.data.msg,
