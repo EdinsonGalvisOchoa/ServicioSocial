@@ -14,6 +14,28 @@ const AuthProvider =({children}) => {
   
    // state llamado auth para almacenar todo el objeto json que devuelve la funcion comprobar password
      const[ auth, setAuth] = useState({})
+
+
+     //useeffect  de una sola ejecucion"[]"", donde intenta  validar que exista un token el local storage y validar el usuario
+
+     useEffect(()=>{
+        const autenticarUsuario = async () => {
+            const token = localStorage.getItem("token")
+
+            if(!token){
+                console.log("No hay token")
+
+            }
+            console.log("Si hay token")
+
+        }
+
+        autenticarUsuario()
+
+     },[])
+
+
+
     return(
         // informacion que va a estar disponible en los demas componentes
         <AuthContext.Provider
