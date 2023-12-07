@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import Alertas from "../components/Alertas"
-//import axios from "axios" //    Comunicarnos desde react hacia el backend por medio de axios
 import clienteAxios from "../config/clienteAxios";
 
 
