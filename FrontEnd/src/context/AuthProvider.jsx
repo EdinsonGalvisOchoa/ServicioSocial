@@ -2,23 +2,24 @@
 // vamos a tener algunas funciones que corren cuando carge el componente  con el useeffect
 
 
-import{useState, useEffect, createContext} from " react"
-import { Children } from "react";
+import { useState, useEffect, createContext} from "react"
+
 
 const AuthContext = createContext();
 // nuestro Provider(de donde vienen los datos) rodea toda la aplicacion y como rodea toda la aplicacion le pasamos children que van a ser todos los componentes 
 //para que este disponible toda la informacion en los demas componentes
 
-const AuthProvider =({Children}) =>{
+const AuthProvider =({children}) => {
 
     return(
+        // informacion que va a estar disponible en los demas componentes
         <AuthContext.Provider
-        value={{
+        value = {{
 
         }}
         
         >
-            {Children}
+            {children}
         </AuthContext.Provider>
     )
 
