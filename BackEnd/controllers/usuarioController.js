@@ -45,7 +45,7 @@ const autenticar = async (req, res) => {
     return res.status(403).json({ msg: error.message }); //error 404 es el error de no encontrado
   }
 
-  //comprobar su password
+  //comprobar su password y dar acceso
   if (await usuario.comprobarPassword(password)) {
     res.json({
       _id: usuario._id,
