@@ -14,13 +14,16 @@ const nuevoProyecto = async (req, res) => {
 };
 
 const obtenerProyectos = async (req, res) => {
-  const proyectos = await Proyecto.find().where("creador").equals(req.usuario);
+
+  // .select("-tareas") es para que no se traiga las tareas de los proyectos ya que en la pestaña de proyectos no es necesaria
+  const proyectos = await Proyecto.find().where("creador").equals(req.usuario).select("-tareas");
   return res.json(proyectos);
 };
 
 const obtenerProyecto = async (req, res) => {
   const { id } = req.params;
-  const proyecto = await Proyecto.findById(id);
+  // con el metodo populate se extrae no solo el id si no todos los datos de las tareas , es asi como se vincula muchas tareas a un solo proyecto
+  const proyecto = await Proyecto.findById(id).populate("tareas");
   if (!proyecto) {
     const error = new Error("No encontrado");
     return res.status(404).json({ msg: error.message });

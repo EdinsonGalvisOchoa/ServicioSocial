@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { Mongoose } from "mongoose";
 
 const proyectosSchema = mongoose.Schema(
   {
@@ -26,6 +26,13 @@ const proyectosSchema = mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId, // Con esto relacionamos la collecion de usuarios con la coleccion de proyecto, ya que el creador va a ser el unico que puede asignar o crear tareas
       ref: "Usuario", // Creador es un objeto ya que solo puede haber un creador de una tarea
     },
+    tareas: [
+      {
+        type:mongoose.Schema.Types.ObjectId,
+        ref: "Tarea", // se hace referencia hacia el item que necesitamos relacionar
+      }
+    ],
+
     colaboradores: [
       {
         type: mongoose.Schema.Types.ObjectId, // Con esto relacionamos la collecion de usuarios con la coleccion de proyecto, ya que el creador va a ser el unico que puede asignar o crear tareas
@@ -36,7 +43,6 @@ const proyectosSchema = mongoose.Schema(
 
   { timestamps: true }
 );
-
 
 const Proyecto = mongoose.model("Proyecto", proyectosSchema);
 export default Proyecto;

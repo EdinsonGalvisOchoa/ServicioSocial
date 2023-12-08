@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import useProyectos from "../hooks/useProyectos";
 import ModalFormularioTarea from "../components/ModalFormularioTarea";
+import Tarea from "../components/Tarea";
 
 const Proyecto = () => {
   const params = useParams();
@@ -65,6 +66,26 @@ const Proyecto = () => {
         </svg>
         Crear tarea
       </button>
+
+      <p className="Font-bold text-xl mt-10 font-bold">Tareas del proyecto</p>
+      <div className="bg-white shadow mt-10 rounded-10">
+        {proyecto.tareas?.length ?
+        proyecto.tareas?.map(tarea =>(
+        // Se da por implicito returm y se define el key porque estamos iterando
+        < Tarea
+        key={tarea._id}
+        // creamos el prop de tarea y le pasamos el objeto {tarea}
+        tarea={tarea}
+        />
+       ))
+       : 
+      
+      <p className="text-center my-5 p-10 font-bold">No hay tareas en este proyecto</p>}
+      </div>
+
+
+
+
       <ModalFormularioTarea
       // le pasamos los props al modal
       modal={modal}
