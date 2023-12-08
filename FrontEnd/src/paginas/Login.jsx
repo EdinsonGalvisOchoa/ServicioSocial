@@ -12,8 +12,9 @@ const Login = () => {
   const [alerta, setAlerta] = useState("");
 
   // llamo a la funcion useAuth que se encuentra enm la carpeta de hooks que asu vez extrae todo lo que se encuentre en autoprovider quien se encuentra en la carpeta context
-  const {setAuth} = useAuth();
- 
+  const { setAuth, } = useAuth();
+
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
