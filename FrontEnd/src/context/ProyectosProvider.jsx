@@ -10,6 +10,27 @@ const ProyectosProvider = ({ children }) => {
   // funcion que va a tomar un string con la url que se va a enviar el usuario
   const navigate = useNavigate();
 
+  useEffect(() => {
+    const obtenerproyectos = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        if (!token) return;
+
+        const config = {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        };
+
+        const { data } = await clienteAxios.get("/proyectos", config);
+        console.log(data)
+      } catch (error) {
+        console.log(error)
+      }
+    };
+  }, []);
+
   const mostrarAlerta = (alerta) => {
     setAlerta(alerta);
 
@@ -39,8 +60,8 @@ const ProyectosProvider = ({ children }) => {
       });
 
       setTimeout(() => {
-        setAlerta({})
-        navigate("/proyectos")
+        setAlerta({});
+        navigate("/proyectos");
       }, 3000);
     } catch (error) {
       console.log(error);
