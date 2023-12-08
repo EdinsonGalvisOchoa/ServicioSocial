@@ -10,6 +10,7 @@ const ProyectosProvider = ({ children }) => {
   const [alerta, setAlerta] = useState({});
   const [proyecto, setProyecto] = useState({});
   const [cargando, setCargando] = useState(false);
+  const [modalFormularioTarea, setmodalFormularioTarea] = useState(false)
 
   // funcion que va a tomar un string con la url que se va a enviar el usuario
   const navigate = useNavigate();
@@ -187,6 +188,11 @@ const ProyectosProvider = ({ children }) => {
     }
   };
 
+  const handleModalTarea = ()=>{
+    setmodalFormularioTarea(!modalFormularioTarea)
+
+  }
+
   return (
     <ProyectosContext.Provider
       value={{
@@ -198,7 +204,8 @@ const ProyectosProvider = ({ children }) => {
         proyecto,
         cargando,
         eliminarProyecto,
-      }}
+        modalFormularioTarea,
+        handleModalTarea}}
     >
       {children}
     </ProyectosContext.Provider>
