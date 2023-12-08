@@ -2,6 +2,7 @@ import { useState, useEffect, createContext } from "react";
 import clienteAxios from "../config/clienteAxios";
 import { useNavigate } from "react-router-dom";
 
+
 const ProyectosContext = createContext();
 
 const ProyectosProvider = ({ children }) => {
@@ -24,12 +25,13 @@ const ProyectosProvider = ({ children }) => {
         };
 
         const { data } = await clienteAxios.get("/proyectos", config);
-        console.log(data)
+       setProyectos(data)
       } catch (error) {
-        console.log(error)
+        console.log(error);
       }
-    };
-  }, []);
+    }
+    obtenerproyectos();
+  }, [])
 
   const mostrarAlerta = (alerta) => {
     setAlerta(alerta);
