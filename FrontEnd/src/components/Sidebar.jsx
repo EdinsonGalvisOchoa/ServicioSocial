@@ -5,7 +5,7 @@ import useAuth from "../hooks/useAuth";
 
 const Sidebar = () => {
   const {auth} = useAuth()
-console.log(auth)
+
   return (
    <aside className="md:w-80 lg:w-96m px-5 py-10">
     <p className="text-xl font-bold">Hola: {auth.nombre} </p>

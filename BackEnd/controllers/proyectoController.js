@@ -30,12 +30,10 @@ const obtenerProyecto = async (req, res) => {
     return res.status(401).json({ msg: error.message });
   }
 
-  // Obtener tareas del proyecto
-  const tareas = await Tarea.find().where("proyecto").equals(proyecto._id)
   
 
 
-  res.json({proyecto,tareas,});
+  res.json(proyecto);
 };
 
 const editarProyecto = async (req, res) => {
@@ -56,6 +54,9 @@ const editarProyecto = async (req, res) => {
 
   try {    
     const proyectoAlmacenado = await proyecto.save();
+
+    // al retornar un res.json se deveuelve siempre la integridad de los dastos al devolver lo que esta en la base de datos no lo que esta en la memoria
+    // ni lo que esta en el state
     res.json(proyectoAlmacenado);
   } catch (error) {
     console.log(error);

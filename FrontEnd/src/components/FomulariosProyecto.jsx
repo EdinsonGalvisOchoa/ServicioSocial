@@ -1,45 +1,66 @@
-import { useState } from "react";
-import useProyectos from "../hooks/useProyectos"
-import Alertas from "./Alertas"
-
+import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import useProyectos from "../hooks/useProyectos";
+import Alertas from "./Alertas";
 
 const FomularioProyecto = () => {
+  const [id, setId] = useState(null);
   const [nombre, setNombre] = useState("");
   const [descripcion, setDescripcion] = useState("");
   const [fechaEntrega, setFechaEntrega] = useState("");
   const [cliente, setCliente] = useState("");
 
-  const { mostrarAlerta , alerta , submitProyecto } = useProyectos();
+  const params = useParams();
+  const { mostrarAlerta, alerta, submitProyecto,proyecto } = useProyectos();
 
+  useEffect(() => {
+    if (params.id) {
 
-  const handleSubmit = async e =>{
+      // seteamos los hooks del fomulario con los valores extraidos del state
+      setId(proyecto._id);
+      setNombre(proyecto.nombre)
+      setDescripcion(proyecto.descripcion)
+      // El problema es que no esta definido la fecha de entrega en el momento se hace el slip razon por la cual genera errro
+      // viene mas rapido la consulta a la url id que la consulta a la api para la fecha de entrega
+      // esto se solucion con encadenamiento opcional "optional chaining", al colocarle la incognita , el valida que si exista un valor y aplica el split
+      setFechaEntrega(proyecto.fechaEntrega?.split("T")[0])
+      setCliente(proyecto.cliente)
+      
+    } else {
+      console.log("NuevoProyecto");
+    }
+  }, [params]);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     // valñidacion de campos obligatios
 
-    if([ nombre, descripcion, fechaEntrega , cliente ].includes("")){
-     mostrarAlerta({
+    if ([nombre, descripcion, fechaEntrega, cliente].includes("")) {
+      mostrarAlerta({
         msg: "Todos los campos son obligatorios",
-        error:true
-     })
-       return       
+        error: true,
+      });
+      return;
     }
 
     // Pasar los datos hacia el provider
-     await submitProyecto( { nombre , descripcion , fechaEntrega , cliente })
-     setNombre("")
-     setDescripcion("")
-     setFechaEntrega("")
-     setCliente("")
+    await submitProyecto({ id, nombre, descripcion, fechaEntrega, cliente });
+    setId(null);
+    setNombre("");
+    setDescripcion("");
+    setFechaEntrega("");
+    setCliente("");
+  };
 
-  }
-
-  const { msg } = alerta
+  const { msg } = alerta;
 
   return (
-    <form className="bg-white py-10 px-5 md:w-1/2 rounded-lg shadow" onSubmit={handleSubmit}>
-
-        { msg && <Alertas alerta={alerta}/>}
+    <form
+      className="bg-white py-10 px-5 md:w-1/2 rounded-lg shadow"
+      onSubmit={handleSubmit}
+    >
+      {msg && <Alertas alerta={alerta} />}
 
       <div className="mb-5">
         <label
@@ -107,13 +128,11 @@ const FomularioProyecto = () => {
         />
       </div>
 
-      <input 
-      type="submit"
-      value="Crear proyecto"
-      className="bg-sky-600 w-full p-3 uppercase font-bold text-white rounded cursor-pointer hover:bg-sky-700 transition-colors"
+      <input
+        type="submit"
+        value={id? "Actualizar proyecto" : "Crear proyecto"}
+        className="bg-sky-600 w-full p-3 uppercase font-bold text-white rounded cursor-pointer hover:bg-sky-700 transition-colors"
       />
-
-      
     </form>
   );
 };
