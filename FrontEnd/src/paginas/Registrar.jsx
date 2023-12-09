@@ -83,19 +83,19 @@ const Registrar = () => {
           onSubmit={handleSubmit}
           >
           <div className="my-5">
-                <label className="uppercase text-gray-600 block text-xl font-bold" htmlfor="email" >Nombre</label>
+                <label className="uppercase text-gray-600 block text-xl font-bold" htmlFor="email" >Nombre</label>
                 <input id="nombre"type="text" placeholder="Digite tu nombre y apellidos" className="w-full mt-3 p-3 border rounded-xl bg-gray-50" value={nombre} onChange={e=>setNombre(e.target.value)}/>
             </div>
             <div className="my-5">
-                <label className="uppercase text-gray-600 block text-xl font-bold" htmlfor="email" >Email</label>
+                <label className="uppercase text-gray-600 block text-xl font-bold" htmlFor="email" >Email</label>
                 <input id="email"type="email" placeholder="email de registro" className="w-full mt-3 p-3 border rounded-xl bg-gray-50" value={email} onChange={e=>setEmail(e.target.value)}/>
             </div>
             <div className="my-5">
-                <label className="uppercase text-gray-600 block text-xl font-bold" htmlfor="password">Password</label>
+                <label className="uppercase text-gray-600 block text-xl font-bold" htmlFor="password">Password</label>
                 <input id="password"type="password" placeholder="password" className="w-full mt-3 p-3 border rounded-xl bg-gray-50"value={password} onChange={e=>setPassword(e.target.value)}/>
             </div>
             <div className="my-5">
-                <label className="uppercase text-gray-600 block text-xl font-bold" htmlfor="password">Repetir Password</label>
+                <label className="uppercase text-gray-600 block text-xl font-bold" htmlFor="password">Repetir Password</label>
                 <input id="password2"type="password" placeholder="Repetir tu password" className="w-full mt-3 p-3 border rounded-xl bg-gray-50"value={repetirPassword} onChange={e=>setRepetirPassword(e.target.value)}/>
             </div>
             <input type="Submit" value="Crear cuenta" className="bg-sky-700 mb-5 w-full py-3 text-white uppercase font-bold rounded hover:cursor-pointer hover:bg-sky-800 transition-colors"/>

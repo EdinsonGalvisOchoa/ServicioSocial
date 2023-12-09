@@ -23,7 +23,8 @@ const agregarTarea = async (req, res) => {
 
         return res.json(tareaAlmacenada);
       } catch (error) {
-        console.log(error);        
+        console.log(error); 
+        console.log("Aqui llego")       
       }
 };
 const obtenerTarea = async (req, res) => {
@@ -95,7 +96,7 @@ const eliminarTarea = async (req, res) => {
 
     try {    
          await tarea.deleteOne()
-        res.json({msg:"Tarea Eliminada"});
+        res.json({msg:"La tarea seleccionada se ha eliminado"});
       } catch (error) {
         console.log(error);
         

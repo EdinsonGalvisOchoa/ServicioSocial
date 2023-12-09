@@ -1,13 +1,13 @@
 import { Fragment, useState, useEffect } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import useProyectos from "../hooks/useProyectos";
-import Tarea from "../../../BackEnd/models/tareaModel";
 import Alertas from "./Alertas";
 import { useParams } from "react-router-dom";
 
 const PRIORIDAD = ["Baja", "Media", "Alta"];
 
 const ModalFormularioTarea = () => {
+  const [id, setId] = useState("");
   const [nombre, setNombre] = useState("");
   const [descripcion, setDescripcion] = useState("");
   const [fechaEntrega, setFechaEntrega] = useState("");
@@ -21,8 +21,28 @@ const ModalFormularioTarea = () => {
     mostrarAlerta,
     alerta,
     submitTarea,
+    tarea
   } = useProyectos();
-  const handleSubmit = (e) => {
+
+
+  useEffect(()=>{
+    if(tarea?._id){
+      setId(tarea._id)
+      setNombre(tarea.nombre)
+      setDescripcion(tarea.descripcion)
+      setFechaEntrega(tarea.fechaEntrega.split("T")[0])
+      setPrioridad(tarea.prioridad)
+      return
+    }
+    setId("")
+    setNombre("")
+    setDescripcion("")
+    setFechaEntrega("")
+    setPrioridad("")  
+  },[tarea]);
+
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if ([nombre, descripcion, fechaEntrega, prioridad].includes("")) {
@@ -32,7 +52,12 @@ const ModalFormularioTarea = () => {
       });
       return;
     }
-    submitTarea({ nombre, descripcion, fechaEntrega, prioridad, proyecto:params.id });
+    await submitTarea({ id, nombre, descripcion, fechaEntrega, prioridad, proyecto:params.id });
+    setId("")
+    setNombre("")
+    setDescripcion("")
+    setFechaEntrega("")
+    setPrioridad("")
   };
 
   const { msg } = alerta;
@@ -103,7 +128,7 @@ const ModalFormularioTarea = () => {
                     as="h3"
                     className="text-lg leading-6 font-bold text-gray-900"
                   >
-                    Crear tarea
+                    {id? "Editar tarea" : "Crear Tarea"}
                   </Dialog.Title>
 
                   {msg && <Alertas alerta={alerta} />}
@@ -180,7 +205,7 @@ const ModalFormularioTarea = () => {
                     <input
                       type="submit"
                       className="bg-sky-600 hover:bg-sky-700 w-full p-3 text-white uppercase font-bold cursor-pointer transition-colors rounded text-sm"
-                      value="Crear Tarea"
+                      value={id? "Guardar tarea" : "Crear Tarea"}
                     />
                   </form>
                 </div>

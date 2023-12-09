@@ -30,12 +30,12 @@ const Login = () => {
         password,
       });
       // seteamos la alerta para que no se siga mostrando
-      setAlerta([]);
+      setAlerta({});
       // enviamos la informacion al local storage
       localStorage.setItem("token", data.token);
       // seteamos  el useAuth con la informacion de autenticacion enviada desde el backend al momento de confirmar la contraseña
       setAuth(data);
-      //redireccionamos
+
       navigate("/proyectos");
     } catch (error) {
       setAlerta({

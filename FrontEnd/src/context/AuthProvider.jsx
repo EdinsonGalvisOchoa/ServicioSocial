@@ -39,15 +39,21 @@ const AuthProvider = ({ children }) => {
       try {
         const { data } = await clienteAxios.get("/usuarios/perfil", config);
         setAuth(data);
+
         navigate("/proyectos")
       } catch (error) {
         setAuth({});
-      }
+     }
       setCargando(false);
     };
 
     autenticarUsuario();
   }, []);
+
+  const cerrarSesionAuth = () => {
+    setAuth({})
+
+  }
 
   return (
     // informacion que va a estar disponible en los demas componentes
@@ -56,6 +62,7 @@ const AuthProvider = ({ children }) => {
         auth,
         setAuth,
         cargando,
+        cerrarSesionAuth
       }}
     >
       {children}

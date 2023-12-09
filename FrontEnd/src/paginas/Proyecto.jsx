@@ -1,14 +1,16 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import useProyectos from "../hooks/useProyectos";
 import ModalFormularioTarea from "../components/ModalFormularioTarea";
+import ModalEliminarTarea from "../components/ModalEliminarTarea";
 import Tarea from "../components/Tarea";
+import Alertas from "../components/Alertas";
 
 const Proyecto = () => {
   const params = useParams();
   // con esta linea se esta opbteniendo la funcion obtener proyectos del context a traves del hook llamado useProyectos
-  const { obtenerProyecto, proyecto, cargando , handleModalTarea} = useProyectos();
-  const [modal,setModal] = useState(false)
+  const { obtenerProyecto, proyecto, cargando, handleModalTarea, alerta } =
+    useProyectos();
 
   useEffect(() => {
     obtenerProyecto(params.id);
@@ -17,6 +19,8 @@ const Proyecto = () => {
   const { nombre } = proyecto;
 
   if (cargando) return "Cargando...";
+
+  const { msg } = alerta;
   return (
     <>
       <div className="flex justify-between">
@@ -68,30 +72,29 @@ const Proyecto = () => {
       </button>
 
       <p className="Font-bold text-xl mt-10 font-bold">Tareas del proyecto</p>
-      <div className="bg-white shadow mt-10 rounded-10">
-        {proyecto.tareas?.length ?
-        proyecto.tareas?.map(tarea =>(
-        // Se da por implicito returm y se define el key porque estamos iterando
-        < Tarea
-        key={tarea._id}
-        // creamos el prop de tarea y le pasamos el objeto {tarea}
-        tarea={tarea}
-        />
-       ))
-       : 
-      
-      <p className="text-center my-5 p-10 font-bold">No hay tareas en este proyecto</p>}
+
+      <div className=" flex justify-center">
+        <div className="w-full md:1/3 lg:w-1/4">{msg && <Alertas alerta={alerta} />}</div>
       </div>
 
-
-
-
-      <ModalFormularioTarea
-      // le pasamos los props al modal
-      modal={modal}
-      setModal = {setModal}
-      
-      />
+      <div className="bg-white shadow mt-10 rounded-10">
+        {proyecto.tareas?.length ? (
+          proyecto.tareas?.map((tarea) => (
+            // Se da por implicito returm y se define el key porque estamos iterando
+            <Tarea
+              key={tarea._id}
+              // creamos el prop de tarea y le pasamos el objeto {tarea}
+              tarea={tarea}
+            />
+          ))
+        ) : (
+          <p className="text-center my-5 p-10 font-bold">
+            No hay tareas en este proyecto
+          </p>
+        )}
+      </div>
+      <ModalFormularioTarea />
+      <ModalEliminarTarea />
     </>
   );
 };
