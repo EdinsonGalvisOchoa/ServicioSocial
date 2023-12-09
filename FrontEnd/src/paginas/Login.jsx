@@ -29,12 +29,15 @@ const Login = () => {
         email,
         password,
       });
+      
       // seteamos la alerta para que no se siga mostrando
       setAlerta({});
       // enviamos la informacion al local storage
       localStorage.setItem("token", data.token);
       // seteamos  el useAuth con la informacion de autenticacion enviada desde el backend al momento de confirmar la contraseña
       setAuth(data);
+      
+      
 
       navigate("/proyectos");
     } catch (error) {
@@ -50,7 +53,7 @@ const Login = () => {
   return (
     <>
       <h1 className="text-sky-600 font-black text-6xl capitalize">
-        Inicia sesión{" "}
+                Inicia sesión{" "}
       </h1>
 
       {msg && <Alertas alerta={alerta} />}

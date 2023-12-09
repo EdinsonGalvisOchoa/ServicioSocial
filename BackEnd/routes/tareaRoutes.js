@@ -1,19 +1,21 @@
 import express from "express";
-import checkAuth from "../middleware/checkAuth.js";
 import {
   agregarTarea,
   obtenerTarea,
   actualizarTarea,
   eliminarTarea,
   cambiarEstado,
-} from "..//controllers/tareaController.js";
+} from "../controllers/tareaController.js";
+import checkAuth from "../middleware/checkAuth.js";
 
 const router = express.Router();
 
-router.post("/",checkAuth, agregarTarea);
-router.get("/:id",checkAuth, obtenerTarea);
-router.put("/:id",checkAuth, actualizarTarea);
-router.delete("/:id",checkAuth, eliminarTarea);
-router.post("/estado/:id",checkAuth, cambiarEstado);
+router.post("/", checkAuth, agregarTarea);
+router
+  .route("/:id")
+  .get(checkAuth, obtenerTarea)
+  .put(checkAuth, actualizarTarea)
+  .delete(checkAuth, eliminarTarea);
 
-export default router
+router.post("/estado/:id", checkAuth, cambiarEstado);
+export default router;

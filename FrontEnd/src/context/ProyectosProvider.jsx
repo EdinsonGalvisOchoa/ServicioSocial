@@ -2,7 +2,7 @@ import { useState, useEffect, createContext } from "react";
 import clienteAxios from "../config/clienteAxios";
 import { useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth"
-import { nuevoProyecto } from "../../../BackEnd/controllers/proyectoController";
+
 
 const ProyectosContext = createContext();
 
@@ -23,7 +23,9 @@ const ProyectosProvider = ({ children }) => {
     const obtenerproyectos = async () => {
       try {
         const token = localStorage.getItem("token");
-        if (!token) return;
+        if (!token) return(console.log("No hay token"))
+        
+        ;
 
         const config = {
           headers: {
