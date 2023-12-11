@@ -1,4 +1,4 @@
-import Proyecto from "../models/Proyecto.js";
+import Proyecto from "../models/proyecto.js";
 import Usuario from "../models/Usuario.js";
 
 const obtenerProyectos = async (req, res) => {
