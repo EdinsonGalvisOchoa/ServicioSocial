@@ -3,8 +3,13 @@ import Tarea from "../models/Tarea.js";
 
 const agregarTarea = async (req, res) => {
   const { proyecto } = req.body;
+  const { nombre1 } = req.body;
+  console.log(nombre1)
+
+  
 
   const existeProyecto = await Proyecto.findById(proyecto);
+  console.log(existeProyecto)
 
   if (!existeProyecto) {
     const error = new Error("El Proyecto no existe");
@@ -17,7 +22,11 @@ const agregarTarea = async (req, res) => {
   }
 
   try {
+    console.log("Antes ")
     const tareaAlmacenada = await Tarea.create(req.body);
+    console.log("Despues")
+    console.log(tareaAlmacenada)
+    
     // Almacenar el ID en el proyecto
     existeProyecto.tareas.push(tareaAlmacenada._id);
     await existeProyecto.save();

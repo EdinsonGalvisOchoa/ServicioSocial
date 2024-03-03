@@ -14,12 +14,12 @@ const ProyectosProvider = ({children}) => {
     const [alerta, setAlerta] = useState({});
     const [proyecto, setProyecto] = useState({});
     const [cargando, setCargando] = useState(false);
-    const [ modalFormularioTarea, setModalFormularioTarea ] = useState(false)
-    const [ tarea, setTarea] = useState({})
-    const [ modalEliminarTarea, setModalEliminarTarea ] = useState(false)
-    const [ colaborador, setColaborador] = useState({})
-    const [ modalEliminarColaborador, setModalEliminarColaborador] = useState(false)
-    const [ buscador, setBuscador] = useState(false)
+    const [modalFormularioTarea, setModalFormularioTarea ] = useState(false)
+    const [tarea, setTarea] = useState({})
+    const [modalEliminarTarea, setModalEliminarTarea ] = useState(false)
+    const [colaborador, setColaborador] = useState({})
+    const [modalEliminarColaborador, setModalEliminarColaborador] = useState(false)
+    const [buscador, setBuscador] = useState(false)
 
     const navigate = useNavigate();
     const { auth } = useAuth()
@@ -191,15 +191,18 @@ const ProyectosProvider = ({children}) => {
     }
 
     const handleModalTarea = () => {
+        
         setModalFormularioTarea(!modalFormularioTarea)
         setTarea({})
     }
 
     const submitTarea = async tarea => {
+        
         if(tarea?.id) {
             await editarTarea(tarea)
         } else {
-            await crearTarea(tarea)
+            await crearTarea(tarea);           
+
         }
     }
 
@@ -215,7 +218,11 @@ const ProyectosProvider = ({children}) => {
                 }
             }
 
+            console.log("proyectos provider antes crear tarea");
+            console.log(tarea);
+            
             const { data } = await clienteAxios.post('/tareas', tarea, config)
+            console.log("proyectos provider despues crear tarea");
 
             setAlerta({})
             setModalFormularioTarea(false)
