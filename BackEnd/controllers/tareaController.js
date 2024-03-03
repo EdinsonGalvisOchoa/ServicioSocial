@@ -6,7 +6,6 @@ const agregarTarea = async (req, res) => {
   
 
   const existeProyecto = await Proyecto.findById(proyecto);
-  console.log(existeProyecto)
 
   if (!existeProyecto) {
     const error = new Error("El Proyecto no existe");

@@ -203,7 +203,6 @@ const ProyectosProvider = ({children}) => {
         if(tarea?.id) {
             await editarTarea(tarea)
         } else {
-            console.log("crear  tarea")
             await crearTarea(tarea);           
 
         }
