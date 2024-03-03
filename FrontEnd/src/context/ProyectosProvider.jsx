@@ -218,11 +218,9 @@ const ProyectosProvider = ({children}) => {
                 }
             }
 
-            console.log("proyectos provider antes crear tarea");
-            console.log(tarea);
             
             const { data } = await clienteAxios.post('/tareas', tarea, config)
-            console.log("proyectos provider despues crear tarea");
+
 
             setAlerta({})
             setModalFormularioTarea(false)
