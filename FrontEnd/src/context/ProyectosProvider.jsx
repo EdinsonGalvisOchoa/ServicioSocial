@@ -59,7 +59,9 @@ const ProyectosProvider = ({children}) => {
     }
 
     const submitProyecto = async proyecto => {
+        
         if(proyecto.id) {
+            
             await editarProyecto(proyecto)
         } else {
             await nuevoProyecto(proyecto)
@@ -201,6 +203,7 @@ const ProyectosProvider = ({children}) => {
         if(tarea?.id) {
             await editarTarea(tarea)
         } else {
+            console.log("crear  tarea")
             await crearTarea(tarea);           
 
         }
@@ -434,7 +437,6 @@ const ProyectosProvider = ({children}) => {
         setProyecto(proyectoActualizado)
     }
     const eliminarTareaProyecto = tarea => {
-        console.log(tarea)
         const proyectoActualizado = {...proyecto}
         proyectoActualizado.tareas = proyectoActualizado.tareas.filter(tareaState => tareaState._id !== tarea._id )
         console.log(proyectoActualizado)

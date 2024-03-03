@@ -47,7 +47,14 @@ const ModalFormularioTarea = () => {
             return
         }
 
-        await submitTarea({nombre, descripcion, fechaEntrega, prioridad, proyecto: params.id})
+        
+
+        if(tarea?._id) {
+            await submitTarea({id,nombre, descripcion, fechaEntrega, prioridad, proyecto: params.id})
+        } else {
+
+            await submitTarea({nombre, descripcion, fechaEntrega, prioridad, proyecto: params.id})
+        }
 
     
         setNombre('')
