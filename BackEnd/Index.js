@@ -14,6 +14,7 @@ dotenv.config();
 conectarDB();
 
 // Configurar CORS
+
 const whitelist = [process.env.FRONTEND_URL];
 
 const corsOptions = {
@@ -28,7 +29,8 @@ const corsOptions = {
   },
 };
 
-app.use(cors(corsOptions));
+// Si se desea testear con postman se debe deshabilitar esta funcion app.use(cors(corsOptions)); temporalmente
+// app.use(cors(corsOptions));
 
 // Routing
 app.use("/api/usuarios", usuarioRoutes);
