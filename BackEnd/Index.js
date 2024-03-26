@@ -30,7 +30,7 @@ const corsOptions = {
 };
 
 // Si se desea testear con postman se debe deshabilitar esta funcion app.use(cors(corsOptions)); temporalmente
-// app.use(cors(corsOptions));
+app.use(cors(corsOptions));
 
 // Routing
 app.use("/api/usuarios", usuarioRoutes);
